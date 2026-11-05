@@ -1,0 +1,110 @@
+#define _CRT_SECURE_NO_DEPRECATE
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <ctype.h>
+#include <locale.h>
+
+void zadanie1(void)
+{
+    char c;
+
+    puts("=== Задание 1 ===");
+    puts("Введите символ:");
+    scanf(" %c", &c);
+
+    switch (c)
+    {
+    case '0': case '1': case '2': case '3': case '4':
+    case '5': case '6': case '7': case '8': case '9':
+        puts("Это цифра");
+        break;
+    default:
+        printf("%s\n", isalpha((unsigned char)c) ? "Это буква" : "Это не буква и не цифра");
+    }
+    puts("");
+}
+
+void zadanie2(void)
+{
+    float x, y;
+    char c;
+
+    puts("=== Задание 2. Калькулятор ===");
+    puts("Введите выражение без пробелов (например 5+3). Операции: + - * / ^");
+    scanf("%f%c%f", &x, &c, &y);
+
+    switch (c)
+    {
+    case '+':
+        printf("=%f\n", x + y);
+        break;
+    case '-':
+        printf("=%f\n", x - y);
+        break;
+    case '*':
+        printf("=%f\n", x * y);
+        break;
+    case '/':
+        if (y == 0)
+        {
+            puts("Делить на 0 нельзя");
+        }
+        else
+        {
+            printf("=%f\n", x / y);
+        }
+        break;
+    case '^':
+        printf("=%f\n", pow(x, y));
+        break;
+    default:
+        puts("Неизвестная операция");
+    }
+    puts("");
+}
+
+void homework(void)
+{
+    const char* names[12] = { "Козерог", "Водолей", "Рыбы", "Овен", "Телец", "Близнецы",
+                              "Рак", "Лев", "Дева", "Весы", "Скорпион", "Стрелец" };
+    const int cut[13] = { 0, 20, 19, 21, 20, 21, 21, 23, 23, 23, 23, 22, 22 };
+    int n, d, m, sign;
+
+    puts("=== Домашнее задание === Вариант 9");
+    puts("Введите дату одним числом ddmm:");
+    scanf("%d", &n);
+
+    d = n / 100;
+    m = n % 100;
+
+    switch (m >= 1 && m <= 12 && d >= 1 && d <= 31)
+    {
+    case 1:
+        switch (d >= cut[m])
+        {
+        case 1:
+            sign = m % 12;
+            break;
+        default:
+            sign = m - 1;
+        }
+        printf("%s\n", names[sign]);
+        break;
+    default:
+        puts("Некорректная дата");
+    }
+    puts("");
+}
+
+int main(void)
+{
+    setlocale(LC_CTYPE, "rus");
+
+    zadanie1();
+    zadanie2();
+    homework();
+
+    system("pause");
+    return 0;
+}
